@@ -1,5 +1,12 @@
 @import "antd/dist/antd.css";
 
 img {
-  width: 100px;
+  width: 150px;
+}
+
+.site-page-header {
+  display: flex;
+  justify-content: flex-end;
+  /* background-color: #1890ff; */
+  padding-top: 25px;
 }

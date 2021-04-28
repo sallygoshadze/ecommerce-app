@@ -1,4 +1,8 @@
 import { CartItemType } from "../App";
+import { Button, Card } from "antd";
+import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+
+const { Meta } = Card;
 
 type Props = {
   cartItem: CartItemType;
@@ -7,14 +11,32 @@ type Props = {
 };
 
 const CartItem: React.FC<Props> = ({ cartItem, addToCart, removeFromCart }) => (
-  <div>
-    <h2>{cartItem.title}</h2>
-    <p>price: ${cartItem.price}</p>
-    <p>Total: ${(cartItem.amount * cartItem.price).toFixed(2)}</p>
-    <button onClick={() => removeFromCart(cartItem.id)}>-</button>
-    <p>{cartItem.amount}</p>
-    <button onClick={() => addToCart(cartItem)}>+</button>
-  </div>
+  <Card
+    size="small"
+    hoverable
+    style={{ width: 350 }}
+    actions={[
+      <Button onClick={() => removeFromCart(cartItem.id)}>
+        <MinusOutlined />
+      </Button>,
+      <h3>{cartItem.amount}</h3>,
+      <Button onClick={() => addToCart(cartItem)}>
+        <PlusOutlined />
+      </Button>,
+    ]}
+  >
+    <Meta
+      avatar={<img alt={cartItem.title} src={cartItem.image} />}
+      title={<h3>Price: ${(cartItem.amount * cartItem.price).toFixed(2)}</h3>}
+      description={
+        <div>
+          <h4>{cartItem.title}</h4>
+          <br />
+          <h4>{`Price for one piece: $${cartItem.price}`}</h4>
+        </div>
+      }
+    />
+  </Card>
 );
 
 export default CartItem;

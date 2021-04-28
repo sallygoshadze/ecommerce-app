@@ -1,6 +1,5 @@
 import { CartItemType } from "../App";
 import { Card, Button } from "antd";
-import { EditOutlined, SettingOutlined } from "@ant-design/icons";
 
 const { Meta } = Card;
 
