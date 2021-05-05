@@ -9,4 +9,5 @@ img {
   justify-content: flex-end;
   /* background-color: #1890ff; */
   padding-top: 25px;
+  width: 100vw;
 }

@@ -1,27 +1,44 @@
-import { CartItemType } from "../App";
 import { Button, Card } from "antd";
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
+import { connect, ConnectedProps } from "react-redux";
+import { REMOVE, TOGGLE_AMOUNT, ToggleAmountAction, BaseAction } from "../store/actions";
+import { Dispatch } from "redux";
+import { CartItemType, TOGGLE } from "../store/store";
 
 const { Meta } = Card;
 
-type Props = {
-  cartItem: CartItemType;
-  addToCart: (clickedItem: CartItemType) => void;
-  removeFromCart: (id: number) => void;
+type Props = { cartItem: CartItemType }
+
+const mapDispatchToProps = (dispatch: Dispatch, ownProps: Props) => {
+  const { id } = ownProps.cartItem;
+  return {
+    remove: () => dispatch<BaseAction>({ type: REMOVE, payload: { id } }),
+    toggle: (toggle: TOGGLE) =>
+      dispatch<ToggleAmountAction>({ type: TOGGLE_AMOUNT, payload: { id, toggle } }),
+  };
 };
 
-const CartItem: React.FC<Props> = ({ cartItem, addToCart, removeFromCart }) => (
+const connector = connect(null, mapDispatchToProps);
+
+const CartItem: React.FC<ConnectedProps<typeof connector> & Props> = ({
+  cartItem,
+  remove,
+  toggle,
+}) => (
   <Card
     size="small"
     hoverable
     style={{ width: 350 }}
     actions={[
-      <Button onClick={() => removeFromCart(cartItem.id)}>
+      <Button onClick={() => cartItem.amount === 1 ? remove() : toggle(TOGGLE.Decrease)}>
         <MinusOutlined />
       </Button>,
       <h3>{cartItem.amount}</h3>,
-      <Button onClick={() => addToCart(cartItem)}>
+      <Button onClick={() => toggle(TOGGLE.Increase)}>
         <PlusOutlined />
+      </Button>,
+      <Button>
+        <DeleteOutlined key="remove" onClick={() => remove()} />
       </Button>,
     ]}
   >
@@ -39,4 +56,5 @@ const CartItem: React.FC<Props> = ({ cartItem, addToCart, removeFromCart }) => (
   </Card>
 );
 
-export default CartItem;
+
+export default connector(CartItem);

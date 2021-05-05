@@ -1,13 +1,11 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { QueryClient, QueryClientProvider } from "react-query";
-
-const client = new QueryClient();
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 ReactDOM.render(
-  <QueryClientProvider client={client}>
+  <Provider store={store}>
     <App />
-  </QueryClientProvider>,
+  </Provider>,
   document.getElementById("root")
 );
