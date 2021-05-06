@@ -1,7 +1,6 @@
 import { Card, Button } from "antd";
-import { connect, ConnectedProps } from "react-redux";
-import { AddToCartAction, ADD_TO_CART } from "../store/actions";
-import { Dispatch } from "redux";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/actionCreators";
 import { CartItemType } from "../store/store";
 
 const { Meta } = Card;
@@ -10,13 +9,8 @@ type Props = {
   item: CartItemType;
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return { addToCart: (item: CartItemType) => dispatch<AddToCartAction>({ type: ADD_TO_CART, payload: item }) };
-};
-
-const connector = connect(null, mapDispatchToProps);
-
-const Item: React.FC<ConnectedProps<typeof connector> & Props> = ({ item, addToCart }) => {
+const Item: React.FC<Props> = ({ item }) => {
+  const dispatch = useDispatch();
   return (
     <Card
       // style={{ width: 450 }}
@@ -26,7 +20,7 @@ const Item: React.FC<ConnectedProps<typeof connector> & Props> = ({ item, addToC
         <Button
           type="primary"
           onClick={() => {
-            addToCart(item);
+            dispatch(addToCart(item));
           }}
         >
           Add To Cart
@@ -42,5 +36,4 @@ const Item: React.FC<ConnectedProps<typeof connector> & Props> = ({ item, addToC
   );
 };
 
-
-export default connector(Item);
+export default Item;

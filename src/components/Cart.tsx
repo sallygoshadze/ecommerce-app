@@ -1,34 +1,18 @@
 import { useEffect } from "react";
 import CartItem from "./CartItem";
 import { Button, Empty, Drawer } from "antd";
-import { connect, ConnectedProps } from "react-redux";
-import {
-  CLEAR,
-  GET_TOTALS,
-  TOGGLE_DRAWER,
-} from "../store/actions";
+import { useSelector, useDispatch } from "react-redux";
+import { clear, getTotals, toggleDrawer } from "../store/actionCreators";
 import { Store } from "../store/store";
 
-const mapStateToProps = (
-  state: Store
-): Pick<Store, "cartItems" | "total" | "visible"> => {
-  return {
-    cartItems: state.cartItems,
-    total: state.total,
-    visible: state.visible,
-  };
-};
+const Cart: React.FC = () => {
+  const visible = useSelector((state: Store) => state.visible);
+  const total = useSelector((state: Store) => state.total);
+  const cartItems = useSelector((state: Store) => state.cartItems);
+  const dispatch = useDispatch();
 
-const connector = connect(mapStateToProps);
-
-const Cart: React.FC<ConnectedProps<typeof connector>> = ({
-  visible,
-  cartItems,
-  total,
-  dispatch,
-}) => {
   useEffect(() => {
-    dispatch({ type: GET_TOTALS });
+    dispatch(getTotals());
   }, [cartItems, dispatch]);
 
   return (
@@ -37,7 +21,7 @@ const Cart: React.FC<ConnectedProps<typeof connector>> = ({
       title="Your Cart"
       placement="right"
       closable={true}
-      onClose={() => dispatch({ type: TOGGLE_DRAWER })}
+      onClose={() => dispatch(toggleDrawer())}
       visible={visible}
     >
       {cartItems.length === 0 ? (
@@ -50,7 +34,7 @@ const Cart: React.FC<ConnectedProps<typeof connector>> = ({
         size="large"
         type="primary"
         danger
-        onClick={() => dispatch({ type: CLEAR })}
+        onClick={() => dispatch(clear())}
       >
         Clear Cart
       </Button>
@@ -58,4 +42,4 @@ const Cart: React.FC<ConnectedProps<typeof connector>> = ({
   );
 };
 
-export default connector(Cart);
+export default Cart;

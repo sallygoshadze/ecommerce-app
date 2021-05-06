@@ -1,15 +1,11 @@
 import { Row, Col } from "antd";
-import { connect, ConnectedProps } from "react-redux";
+import { useSelector } from "react-redux";
 import { CartItemType, Store } from "../store/store";
 import Item from "./Item";
 
-const mapStateToProps = (state: Store): Pick<Store, 'products'> => {
-  return { products: state.products };
-};
+const Products: React.FC = () => {
+  const products = useSelector((state: Store) => state.products);
 
-const connector = connect(mapStateToProps);
-
-const Products: React.FC<ConnectedProps<typeof connector>> = ({ products }) => {
   return (
     <Row gutter={[12, 12]}>
       {products.map((item: CartItemType) => (
@@ -21,5 +17,4 @@ const Products: React.FC<ConnectedProps<typeof connector>> = ({ products }) => {
   );
 };
 
-
-export default connector(Products);
+export default Products;

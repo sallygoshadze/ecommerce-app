@@ -1,4 +1,6 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import thunkMiddleware from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 import reducer from "./reducer";
 
 export type CartItemType = {
@@ -28,6 +30,11 @@ export const initialStore: Store = {
 };
 
 export type AppDispatch = typeof store.dispatch;
-export enum TOGGLE { Increase = 'increase', Decrease = 'decrease' }
+export enum TOGGLE {
+  Increase = "increase",
+  Decrease = "decrease",
+}
 
-export const store = createStore(reducer);
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware));
+
+export const store = createStore(reducer, composedEnhancer);

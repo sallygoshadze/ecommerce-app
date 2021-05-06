@@ -1,26 +1,19 @@
 import { Badge, Layout } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { connect, ConnectedProps } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../store/store";
-import { TOGGLE_DRAWER } from "../store/actions";
+import { toggleDrawer } from "../store/actionCreators";
 
 const { Header } = Layout;
 
-const mapStateToProps = (state: Store) => {
-  return { amount: state.amount };
-};
-
-const connector = connect(mapStateToProps);
-
-const Navbar: React.FC<ConnectedProps<typeof connector>> = ({
-  amount,
-  dispatch,
-}) => {
+const Navbar: React.FC = () => {
+  const amount = useSelector((state: Store) => state.amount);
+  const dispatch = useDispatch();
   return (
     <Header className="site-page-header">
       <Badge count={amount} showZero>
         <ShoppingCartOutlined
-          onClick={() => dispatch({ type: TOGGLE_DRAWER })}
+          onClick={() => dispatch(toggleDrawer())}
           style={{
             fontSize: "25px",
             color: "#fff",
@@ -31,4 +24,4 @@ const Navbar: React.FC<ConnectedProps<typeof connector>> = ({
   );
 };
 
-export default connector(Navbar);
+export default Navbar;

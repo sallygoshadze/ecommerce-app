@@ -5,32 +5,16 @@ import Sidebar from "./components/Sidebar";
 import Products from "./components/Products";
 import "./App.css";
 import { Layout } from "antd";
-import { connect, ConnectedProps } from "react-redux";
-import { SetProductsAction, SET_PRODUCTS } from "./store/actions";
-import { Dispatch } from "redux";
-import { CartItemType } from "./store/store";
+import { useDispatch } from "react-redux";
+import { getData } from "./store/middlewares";
 
 const { Content } = Layout;
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
-  return {
-    setProducts: (data: CartItemType[]) =>
-      dispatch<SetProductsAction>({ type: SET_PRODUCTS, payload: data }),
-  };
-};
-
-const connector = connect(null, mapDispatchToProps);
-
-const App: React.FC<ConnectedProps<typeof connector>> = ({ setProducts }) => {
-  const fetchProducts = async (): Promise<void> => {
-    const data: CartItemType[] = await (
-      await fetch("http://localhost:3001/data")
-    ).json();
-    setProducts(data);
-  };
+const App: React.FC = () => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchProducts();
+    dispatch(getData());
   }, []);
 
   return (
@@ -47,4 +31,4 @@ const App: React.FC<ConnectedProps<typeof connector>> = ({ setProducts }) => {
   );
 };
 
-export default connector(App);
+export default App;

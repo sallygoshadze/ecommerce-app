@@ -2,26 +2,22 @@ import { AnyAction } from "redux";
 import {
   ADD_TO_CART,
   CLEAR,
-  REMOVE,
   GET_TOTALS,
-  TOGGLE_AMOUNT,
+  REMOVE,
   SET_PRODUCTS,
   ToggleAmountAction,
+  TOGGLE_AMOUNT,
   TOGGLE_DRAWER,
-} from "./actions";
+} from "./actionConstants";
 import { initialStore, TOGGLE } from "./store";
 
 const reducer = (state = initialStore, action: AnyAction) => {
   switch (action.type) {
     case SET_PRODUCTS:
-      return { ...state, products: action.payload };
-    case ADD_TO_CART:
-      console.log(state);
+      return { ...state, products: action.products };
 
-      const updatedCart = [
-        ...state.cartItems,
-        { ...action.payload, amount: 1 },
-      ];
+    case ADD_TO_CART:
+      const updatedCart = [...state.cartItems, { ...action.item, amount: 1 }];
       return { ...state, cartItems: updatedCart };
 
     case TOGGLE_DRAWER:
