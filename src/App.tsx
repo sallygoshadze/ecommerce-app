@@ -24,7 +24,7 @@ const connector = connect(null, mapDispatchToProps);
 const App: React.FC<ConnectedProps<typeof connector>> = ({ setProducts }) => {
   const fetchProducts = async (): Promise<void> => {
     const data: CartItemType[] = await (
-      await fetch("https://fakestoreapi.com/products")
+      await fetch("http://localhost:3001/data")
     ).json();
     setProducts(data);
   };
