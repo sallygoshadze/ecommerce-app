@@ -17,8 +17,24 @@ const reducer = (state = initialStore, action: AnyAction) => {
       return { ...state, products: action.products };
 
     case ADD_TO_CART:
-      const updatedCart = [...state.cartItems, { ...action.item, amount: 1 }];
-      return { ...state, cartItems: updatedCart };
+      const foundItem = state.cartItems.find(
+        (cartItem) => action.item.id === cartItem.id
+      );
+      if (foundItem) {
+        return {
+          ...state,
+          cartItems: state.cartItems.map((cartItem) => {
+            if (action.item.id === cartItem.id) {
+              return { ...cartItem, amount: cartItem.amount + 1 };
+            }
+
+            return cartItem;
+          }),
+        };
+      } else {
+        const updatedCart = [...state.cartItems, { ...action.item, amount: 1 }];
+        return { ...state, cartItems: updatedCart };
+      }
 
     case TOGGLE_DRAWER:
       return { ...state, visible: !state.visible };

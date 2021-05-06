@@ -31,11 +31,8 @@ const CartItem: React.FC<Props> = ({ cartItem }) => {
         >
           <PlusOutlined />
         </Button>,
-        <Button>
-          <DeleteOutlined
-            key="remove"
-            onClick={() => dispatch(remove(cartItem.id))}
-          />
+        <Button key="remove" onClick={() => dispatch(remove(cartItem.id))}>
+          <DeleteOutlined />
         </Button>,
       ]}
     >
