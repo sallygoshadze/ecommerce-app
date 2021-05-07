@@ -1,33 +1,34 @@
-import { useEffect } from "react";
 import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Products from "./components/Products";
 import "./App.css";
 import { Layout } from "antd";
-import { useDispatch } from "react-redux";
-import { getData } from "./store/middlewares";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const { Content } = Layout;
 
 const App: React.FC = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getData());
-  }, []);
+  const routes = (
+    <Switch>
+      <Route exact path="/" component={Products} />
+      <Route path="/category/:category" component={Products} />
+    </Switch>
+  );
 
   return (
-    <Layout>
-      <Navbar />
+    <Router>
       <Layout>
-        <Sidebar />
-        <Content>
-          <Cart />
-          <Products />
-        </Content>
+        <Navbar />
+        <Layout>
+          <Sidebar />
+          <Content>
+            <Cart />
+            {routes}
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
+    </Router>
   );
 };
 
