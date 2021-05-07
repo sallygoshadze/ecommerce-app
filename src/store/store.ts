@@ -19,6 +19,7 @@ export type Store = {
   products: CartItemType[];
   total: number;
   amount: number;
+  loading: boolean;
 };
 
 export const initialStore: Store = {
@@ -27,6 +28,7 @@ export const initialStore: Store = {
   visible: false,
   total: 0,
   amount: 0,
+  loading: false,
 };
 
 export type AppDispatch = typeof store.dispatch;

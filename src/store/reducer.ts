@@ -4,6 +4,7 @@ import {
   CLEAR,
   GET_TOTALS,
   REMOVE,
+  SET_LOADING,
   SET_PRODUCTS,
   ToggleAmountAction,
   TOGGLE_AMOUNT,
@@ -83,6 +84,9 @@ const reducer = (state = initialStore, action: AnyAction) => {
           return item;
         }),
       };
+
+    case SET_LOADING:
+      return { ...state, loading: !state.loading };
 
     default:
       return state;

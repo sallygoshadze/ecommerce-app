@@ -3,6 +3,7 @@ import {
   CLEAR,
   GET_TOTALS,
   REMOVE,
+  SET_LOADING,
   SET_PRODUCTS,
   TOGGLE_AMOUNT,
   TOGGLE_DRAWER,
@@ -52,5 +53,11 @@ export const addToCart = (item: CartItemType) => {
   return {
     type: ADD_TO_CART,
     item: item,
+  };
+};
+
+export const setLoading = () => {
+  return {
+    type: SET_LOADING,
   };
 };

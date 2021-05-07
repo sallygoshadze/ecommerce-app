@@ -20,3 +20,4 @@ export const SET_PRODUCTS = "SET_PRODUCTS";
 export const CLEAR = "CLEAR";
 export const GET_TOTALS = "GET_TOTALS";
 export const TOGGLE_DRAWER = "TOGGLE_DRAWER";
+export const SET_LOADING = "SET_LOADING";
