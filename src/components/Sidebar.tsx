@@ -33,7 +33,7 @@ const sidebarItems: { [key: string]: SidebarItem } = {
 
 const Sidebar: React.FC = () => {
   return (
-    <Sider collapsible defaultCollapsed={true}>
+    <Sider collapsible defaultCollapsed={true} style={{ minHeight: "100vh" }}>
       <Menu theme="dark">
         <Menu.Item key="all" icon={<GlobalOutlined />}>
           <Link to="/">All</Link>

@@ -25,19 +25,34 @@ const Cart: React.FC = () => {
       visible={visible}
     >
       {cartItems.length === 0 ? (
-        <Empty description="Your cart is currently empty" />
+        <Empty
+          image={
+            <img src="https://cdn.dribbble.com/users/1244867/screenshots/4346888/empty_cart.jpg?compress=1&resize=400x300" />
+          }
+          description="Your cart is currently empty"
+        />
       ) : (
         cartItems.map((item) => <CartItem key={item.id} cartItem={item} />)
       )}
-      <h2>Total: ${total}</h2>
-      <Button
-        size="large"
-        type="primary"
-        danger
-        onClick={() => dispatch(clear())}
-      >
-        Clear Cart
-      </Button>
+
+      {cartItems.length > 0 ? (
+        <div>
+          <h2 style={{ marginTop: "10px" }}>Total: ${total}</h2>
+          <div className="btn-container">
+            <Button size="large" disabled>
+              Buy Now
+            </Button>
+            <Button
+              size="large"
+              type="primary"
+              danger
+              onClick={() => dispatch(clear())}
+            >
+              Clear Cart
+            </Button>
+          </div>
+        </div>
+      ) : null}
     </Drawer>
   );
 };

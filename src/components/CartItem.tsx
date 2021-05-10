@@ -1,4 +1,4 @@
-import { Button, Card } from "antd";
+import { Avatar, Button, Card } from "antd";
 import { DeleteOutlined, MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { remove, toggleAmount } from "../store/actionCreators";
@@ -14,7 +14,7 @@ const CartItem: React.FC<Props> = ({ cartItem }) => {
     <Card
       size="small"
       hoverable
-      style={{ width: 350 }}
+      // style={{ width: 350 }}
       actions={[
         <Button
           onClick={() =>
@@ -37,7 +37,13 @@ const CartItem: React.FC<Props> = ({ cartItem }) => {
       ]}
     >
       <Meta
-        avatar={<img alt={cartItem.title} src={cartItem.image} />}
+        avatar={
+          <Avatar
+            size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+            shape="square"
+            icon={<img src={cartItem.image} alt={cartItem.title} />}
+          />
+        }
         title={<h3>Price: ${(cartItem.amount * cartItem.price).toFixed(2)}</h3>}
         description={
           <div>

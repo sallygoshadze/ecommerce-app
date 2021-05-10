@@ -5,6 +5,7 @@ import Products from "./components/Products";
 import "./App.css";
 import { Layout } from "antd";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import SingleItem from "./components/SingleItem";
 
 const { Content } = Layout;
 
@@ -13,6 +14,7 @@ const App: React.FC = () => {
     <Switch>
       <Route exact path="/" component={Products} />
       <Route path="/category/:category" component={Products} />
+      <Route path="/:title" component={SingleItem}></Route>
     </Switch>
   );
 

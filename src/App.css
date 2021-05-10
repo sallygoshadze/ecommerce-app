@@ -11,3 +11,8 @@ img {
   padding-top: 25px;
   width: 100vw;
 }
+
+.btn-container {
+  display: flex;
+  justify-content: space-between;
+}

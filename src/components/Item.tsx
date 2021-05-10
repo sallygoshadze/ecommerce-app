@@ -1,7 +1,9 @@
 import { Card, Button } from "antd";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { addToCart } from "../store/actionCreators";
 import { CartItemType } from "../store/store";
+import CartItem from "./CartItem";
 
 const { Meta } = Card;
 
@@ -15,8 +17,9 @@ const Item: React.FC<Props> = ({ item }) => {
     <Card
       // style={{ width: 450 }}
       actions={[
-        <Button disabled>Buy Now</Button>,
-
+        <Link to={`/${item.title}`}>
+          <Button>View More</Button>
+        </Link>,
         <Button
           type="primary"
           onClick={() => {
@@ -28,7 +31,13 @@ const Item: React.FC<Props> = ({ item }) => {
       ]}
     >
       <Meta
-        avatar={<img height={150} alt={item.title} src={item.image} />}
+        avatar={
+          <img
+            // height={150}
+            alt={item.title}
+            src={item.image}
+          />
+        }
         title={`$${item.price}`}
         description={<h4>{item.title}</h4>}
       />
