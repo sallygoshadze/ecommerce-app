@@ -14,7 +14,7 @@ const App: React.FC = () => {
     <Switch>
       <Route exact path="/" component={Products} />
       <Route path="/category/:category" component={Products} />
-      <Route path="/:title" component={SingleItem}></Route>
+      <Route path="/:category/:title" component={SingleItem}></Route>
     </Switch>
   );
 

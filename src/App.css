@@ -12,6 +12,14 @@ img {
   width: 100vw;
 }
 
+.title {
+  color: #fff;
+  position: absolute;
+  top: 0.5%;
+  left: 50%;
+  letter-spacing: 5px;
+}
+
 .btn-container {
   display: flex;
   justify-content: space-between;

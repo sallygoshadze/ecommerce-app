@@ -1,4 +1,4 @@
-import { Badge, Layout } from "antd";
+import { Badge, Layout, Typography } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../store/store";
@@ -11,6 +11,7 @@ const Navbar: React.FC = () => {
   const dispatch = useDispatch();
   return (
     <Header className="site-page-header">
+      <h1 className="title">ShopName</h1>
       <Badge count={amount} showZero>
         <ShoppingCartOutlined
           onClick={() => dispatch(toggleDrawer())}

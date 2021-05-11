@@ -17,7 +17,7 @@ const Item: React.FC<Props> = ({ item }) => {
     <Card
       // style={{ width: 450 }}
       actions={[
-        <Link to={`/${item.title}`}>
+        <Link to={`/${item.category}/${item.title}`}>
           <Button>View More</Button>
         </Link>,
         <Button
