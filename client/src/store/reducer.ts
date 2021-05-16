@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
 import {
   ADD_TO_CART,
+  CREATE,
   CLEAR,
   GET_TOTALS,
   REMOVE,
@@ -14,6 +15,9 @@ import { initialStore, TOGGLE } from "./store";
 
 const reducer = (state = initialStore, action: AnyAction) => {
   switch (action.type) {
+    case CREATE:
+      return { ...state, products: [...state.products, action.payload] };
+
     case SET_PRODUCTS:
       return { ...state, products: action.products };
 

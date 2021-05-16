@@ -2,10 +2,12 @@ import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Products from "./components/Products";
+import Form from "./components/ProductForm";
 import "./App.css";
 import { Layout } from "antd";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SingleItem from "./components/SingleItem";
+import React from "react";
 
 const { Content } = Layout;
 
@@ -25,6 +27,7 @@ const App: React.FC = () => {
         <Layout>
           <Sidebar />
           <Content>
+            <Form />
             <Cart />
             {routes}
           </Content>

@@ -15,7 +15,7 @@ const Products: React.FC = () => {
 
   useEffect(() => {
     dispatch(getData(category));
-  }, [category]);
+  }, [category, dispatch]);
   const products = useSelector((state: Store) => state.products);
 
   if (loading) {

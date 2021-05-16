@@ -1,6 +1,8 @@
+import * as api from "../api";
 import {
   ADD_TO_CART,
   CLEAR,
+  CREATE,
   GET_TOTALS,
   REMOVE,
   SET_LOADING,
@@ -9,6 +11,15 @@ import {
   TOGGLE_DRAWER,
 } from "./actionConstants";
 import { CartItemType, TOGGLE } from "./store";
+
+export const createProduct = (product: any) => async (dispatch: any) => {
+  try {
+    const { data } = await api.createProduct(product);
+    dispatch({ type: CREATE, payload: data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const remove = (id: number) => {
   return {

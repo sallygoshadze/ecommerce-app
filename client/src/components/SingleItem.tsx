@@ -2,7 +2,6 @@ import { useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { Store } from "../store/store";
 import { Descriptions, Image, Tabs, Typography } from "antd";
-import { setProducts } from "../store/actionCreators";
 import { getData } from "../store/middlewares";
 
 const { TabPane } = Tabs;

@@ -1,4 +1,4 @@
-import { Badge, Layout, Typography } from "antd";
+import { Badge, Layout } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Store } from "../store/store";

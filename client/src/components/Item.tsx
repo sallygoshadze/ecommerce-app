@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToCart } from "../store/actionCreators";
 import { CartItemType } from "../store/store";
-import CartItem from "./CartItem";
 
 const { Meta } = Card;
 
@@ -39,7 +38,13 @@ const Item: React.FC<Props> = ({ item }) => {
           />
         }
         title={`$${item.price}`}
-        description={<h4>{item.title}</h4>}
+        description={
+          <div>
+            <h4>{item.title}</h4>
+            <button>edit</button>
+            <button>delete</button>
+          </div>
+        }
       />
     </Card>
   );

@@ -27,7 +27,10 @@ const Cart: React.FC = () => {
       {cartItems.length === 0 ? (
         <Empty
           image={
-            <img src="https://cdn.dribbble.com/users/1244867/screenshots/4346888/empty_cart.jpg?compress=1&resize=400x300" />
+            <img
+              src="https://cdn.dribbble.com/users/1244867/screenshots/4346888/empty_cart.jpg?compress=1&resize=400x300"
+              alt="empty cart"
+            />
           }
           description="Your cart is currently empty"
         />
