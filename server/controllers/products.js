@@ -1,8 +1,15 @@
+import mongoose from "mongoose";
 import Product from "../models/product.js";
 
 export const getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const filter = {};
+
+    if (req.query.category) {
+      filter.category = req.query.category;
+    }
+
+    const products = await Product.find(filter);
     res.status(200).json(products);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -22,20 +29,32 @@ export const createProduct = async (req, res) => {
 };
 
 export const updateProduct = async (req, res) => {
-  const { id: _id } = req.params;
+  const { id } = req.params;
   const product = req.body;
 
-  if (!mongoose.Types.ObjectId.isValid(_id)) {
-    return res.status(404).send(`No product with that id: ${_id}`);
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send(`No product with that id: ${id}`);
   }
 
   const updatedProduct = await Product.findByIdAndUpdate(
-    _id,
-    { ...product, _id },
+    id,
+    { ...product },
     {
       new: true,
     }
   );
 
   res.json(updatedProduct);
+};
+
+export const deleteProduct = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send(`No product with that id: ${id}`);
+  }
+
+  await Product.findByIdAndRemove(id);
+
+  res.json({ message: "Post deleted successfully" });
 };

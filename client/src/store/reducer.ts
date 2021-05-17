@@ -10,6 +10,8 @@ import {
   ToggleAmountAction,
   TOGGLE_AMOUNT,
   TOGGLE_DRAWER,
+  DELETE,
+  UPDATE,
 } from "./actionConstants";
 import { initialStore, TOGGLE } from "./store";
 
@@ -21,15 +23,31 @@ const reducer = (state = initialStore, action: AnyAction) => {
     case SET_PRODUCTS:
       return { ...state, products: action.products };
 
+    case UPDATE:
+      return {
+        ...state,
+        products: state.products.map((product) =>
+          product._id === action.payload._id ? action.payload : product
+        ),
+      };
+
+    case DELETE:
+      return {
+        ...state,
+        products: state.products.filter(
+          (product) => product._id !== action.payload
+        ),
+      };
+
     case ADD_TO_CART:
       const foundItem = state.cartItems.find(
-        (cartItem) => action.item.id === cartItem.id
+        (cartItem) => action.item.id === cartItem._id
       );
       if (foundItem) {
         return {
           ...state,
           cartItems: state.cartItems.map((cartItem) => {
-            if (action.item.id === cartItem.id) {
+            if (action.item.id === cartItem._id) {
               return { ...cartItem, amount: cartItem.amount + 1 };
             }
 
@@ -51,7 +69,7 @@ const reducer = (state = initialStore, action: AnyAction) => {
       return {
         ...state,
         cartItems: state.cartItems.filter(
-          (item) => item.id !== action.payload.id
+          (item) => item._id !== action.payload.id
         ),
       };
     case GET_TOTALS:
@@ -76,7 +94,7 @@ const reducer = (state = initialStore, action: AnyAction) => {
       return {
         ...state,
         cartItems: state.cartItems.map((item) => {
-          if (item.id === payload.id) {
+          if (item._id === payload.id) {
             if (payload.toggle === TOGGLE.Increase) {
               return (item = { ...item, amount: item.amount + 1 });
             }

@@ -19,19 +19,19 @@ const CartItem: React.FC<Props> = ({ cartItem }) => {
         <Button
           onClick={() =>
             cartItem.amount === 1
-              ? dispatch(remove(cartItem.id))
-              : dispatch(toggleAmount(cartItem.id, TOGGLE.Decrease))
+              ? dispatch(remove(cartItem._id))
+              : dispatch(toggleAmount(cartItem._id, TOGGLE.Decrease))
           }
         >
           <MinusOutlined />
         </Button>,
         <h3>{cartItem.amount}</h3>,
         <Button
-          onClick={() => dispatch(toggleAmount(cartItem.id, TOGGLE.Increase))}
+          onClick={() => dispatch(toggleAmount(cartItem._id, TOGGLE.Increase))}
         >
           <PlusOutlined />
         </Button>,
-        <Button key="remove" onClick={() => dispatch(remove(cartItem.id))}>
+        <Button key="remove" onClick={() => dispatch(remove(cartItem._id))}>
           <DeleteOutlined />
         </Button>,
       ]}

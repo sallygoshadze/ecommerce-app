@@ -2,7 +2,7 @@ import { useParams } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { Store } from "../store/store";
 import { Descriptions, Image, Tabs, Typography } from "antd";
-import { getData } from "../store/middlewares";
+import { fetchProducts } from "../store/actionCreators";
 
 const { TabPane } = Tabs;
 const { Title } = Typography;
@@ -18,7 +18,7 @@ const SingleItem = () => {
   if (products.length > 0) {
     currentItem = products.find((item) => item.title === title);
   } else {
-    dispatch(getData());
+    dispatch(fetchProducts());
     currentItem = products.find((item) => item.title === title);
   }
 

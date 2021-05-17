@@ -4,7 +4,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import reducer from "./reducer";
 
 export type CartItemType = {
-  id: number;
+  _id: number;
+  creator: string;
   title: string;
   category: string;
   amount: number;

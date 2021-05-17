@@ -3,14 +3,27 @@ import {
   ADD_TO_CART,
   CLEAR,
   CREATE,
+  DELETE,
   GET_TOTALS,
   REMOVE,
   SET_LOADING,
   SET_PRODUCTS,
   TOGGLE_AMOUNT,
   TOGGLE_DRAWER,
+  UPDATE,
 } from "./actionConstants";
 import { CartItemType, TOGGLE } from "./store";
+
+export const fetchProducts = (category?: string) => async (dispatch: any) => {
+  try {
+    dispatch(setLoading());
+    const { data } = await api.fetchProducts(category);
+    dispatch({ type: SET_PRODUCTS, products: data });
+    dispatch(setLoading());
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export const createProduct = (product: any) => async (dispatch: any) => {
   try {
@@ -20,6 +33,28 @@ export const createProduct = (product: any) => async (dispatch: any) => {
     console.log(error);
   }
 };
+
+export const deleteProduct = (id: any) => async (dispatch: any) => {
+  try {
+    console.log("id", id);
+    await api.deleteProduct(id);
+
+    dispatch({ type: DELETE, payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateProduct =
+  (id: any, product: any) => async (dispatch: any) => {
+    try {
+      const { data } = await api.updateProduct(id, product);
+
+      dispatch({ type: UPDATE, payload: data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 export const remove = (id: number) => {
   return {

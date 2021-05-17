@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Cart from "./components/Cart";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
@@ -7,15 +8,19 @@ import "./App.css";
 import { Layout } from "antd";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SingleItem from "./components/SingleItem";
-import React from "react";
 
 const { Content } = Layout;
 
 const App: React.FC = () => {
+  const [currentId, setCurrentId] = useState(null);
   const routes = (
     <Switch>
-      <Route exact path="/" component={Products} />
-      <Route path="/category/:category" component={Products} />
+      <Route exact path="/" >
+        <Products setCurrentId={setCurrentId}/>
+      </Route>
+      <Route path="/category/:category" >
+      <Products setCurrentId={setCurrentId}/>
+      </Route>
       <Route path="/:category/:title" component={SingleItem}></Route>
     </Switch>
   );
@@ -27,7 +32,7 @@ const App: React.FC = () => {
         <Layout>
           <Sidebar />
           <Content>
-            <Form />
+            <Form currentId={currentId} setCurrentId={setCurrentId}/>
             <Cart />
             {routes}
           </Content>

@@ -35,7 +35,7 @@ const Cart: React.FC = () => {
           description="Your cart is currently empty"
         />
       ) : (
-        cartItems.map((item) => <CartItem key={item.id} cartItem={item} />)
+        cartItems.map((item) => <CartItem key={item._id} cartItem={item} />)
       )}
 
       {cartItems.length > 0 ? (

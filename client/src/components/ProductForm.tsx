@@ -1,12 +1,18 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Button, Typography } from "antd";
-import { createProduct } from "../store/actionCreators";
+import { createProduct, updateProduct } from "../store/actionCreators";
+import { Store } from "../store/store";
 // import FileBase from "react-file-base64";
 
 const { Title } = Typography;
 
-const ProductForm = () => {
+type Props = {
+  currentId: any;
+  setCurrentId: any;
+};
+
+const ProductForm: React.FC<Props> = ({ currentId, setCurrentId }) => {
   const [postData, setPostData] = useState({
     creator: "",
     title: "",
@@ -16,12 +22,33 @@ const ProductForm = () => {
     selectedFile: "",
   });
 
+  const product = useSelector((state: Store) =>
+    currentId ? state.products.find((p) => p._id === currentId) : null
+  );
+
   const dispatch = useDispatch();
 
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    if (product)
+      setPostData({
+        creator: product.creator,
+        title: product.title,
+        price: product.price.toString(),
+        description: product.description,
+        category: product.category,
+        selectedFile: product.image,
+      });
+  }, [product]);
+
   const handleSubmit = (e: any) => {
-    dispatch(createProduct(postData));
+    if (currentId) {
+      dispatch(updateProduct(currentId, postData));
+    } else {
+      dispatch(createProduct(postData));
+    }
+
     return false;
   };
 

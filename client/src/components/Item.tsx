@@ -1,16 +1,17 @@
 import { Card, Button } from "antd";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { addToCart } from "../store/actionCreators";
+import { addToCart, deleteProduct } from "../store/actionCreators";
 import { CartItemType } from "../store/store";
 
 const { Meta } = Card;
 
 type Props = {
   item: CartItemType;
+  setCurrentId: any;
 };
 
-const Item: React.FC<Props> = ({ item }) => {
+const Item: React.FC<Props> = ({ item, setCurrentId }) => {
   const dispatch = useDispatch();
   return (
     <Card
@@ -41,8 +42,10 @@ const Item: React.FC<Props> = ({ item }) => {
         description={
           <div>
             <h4>{item.title}</h4>
-            <button>edit</button>
-            <button>delete</button>
+            <button onClick={() => setCurrentId(item._id)}>edit</button>
+            <button onClick={() => dispatch(deleteProduct(item._id))}>
+              delete
+            </button>
           </div>
         }
       />
