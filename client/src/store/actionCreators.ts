@@ -1,4 +1,7 @@
+import { AnyAction } from "redux";
+import { ThunkAction } from "redux-thunk";
 import * as api from "../api";
+import { ProductForm } from "../components/ProductForm";
 import {
   ADD_TO_CART,
   CLEAR,
@@ -12,9 +15,9 @@ import {
   TOGGLE_DRAWER,
   UPDATE,
 } from "./actionConstants";
-import { CartItemType, TOGGLE } from "./store";
+import { Store, CartItemType, TOGGLE } from "./store";
 
-export const fetchProducts = (category?: string) => async (dispatch: any) => {
+export const fetchProducts = (category?: string): ThunkAction<void, Store, unknown, AnyAction> => async (dispatch) => {
   try {
     dispatch(setLoading());
     const { data } = await api.fetchProducts(category);
@@ -25,7 +28,7 @@ export const fetchProducts = (category?: string) => async (dispatch: any) => {
   }
 };
 
-export const createProduct = (product: any) => async (dispatch: any) => {
+export const createProduct = (product: ProductForm):  ThunkAction<void, Store, unknown, AnyAction> => async (dispatch) => {
   try {
     const { data } = await api.createProduct(product);
     dispatch({ type: CREATE, payload: data });
@@ -34,7 +37,7 @@ export const createProduct = (product: any) => async (dispatch: any) => {
   }
 };
 
-export const deleteProduct = (id: any) => async (dispatch: any) => {
+export const deleteProduct = (id: string):  ThunkAction<void, Store, unknown, AnyAction> => async (dispatch) => {
   try {
     await api.deleteProduct(id);
 
@@ -45,7 +48,7 @@ export const deleteProduct = (id: any) => async (dispatch: any) => {
 };
 
 export const updateProduct =
-  (id: any, product: any) => async (dispatch: any) => {
+  (id: string, product: ProductForm):  ThunkAction<void, Store, unknown, AnyAction> => async (dispatch) => {
     try {
       const { data } = await api.updateProduct(id, product);
 
@@ -55,14 +58,14 @@ export const updateProduct =
     }
   };
 
-export const remove = (id: number) => {
+export const remove = (id: string) => {
   return {
     type: REMOVE,
     payload: { id },
   };
 };
 
-export const toggleAmount = (id: number, toggle: TOGGLE) => {
+export const toggleAmount = (id: string, toggle: TOGGLE) => {
   return {
     type: TOGGLE_AMOUNT,
     payload: { id, toggle },

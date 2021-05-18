@@ -12,7 +12,7 @@ import SingleItem from "./components/SingleItem";
 const { Content } = Layout;
 
 const App: React.FC = () => {
-  const [currentId, setCurrentId] = useState(null);
+  const [currentId, setCurrentId] = useState<string | null>(null);
   const routes = (
     <Switch>
       <Route exact path="/" >

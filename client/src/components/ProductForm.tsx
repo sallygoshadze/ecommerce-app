@@ -2,24 +2,26 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Button, Typography } from "antd";
 import { createProduct, updateProduct } from "../store/actionCreators";
-import { Store } from "../store/store";
+import { CartItemType, Store } from "../store/store";
 // import FileBase from "react-file-base64";
 
 const { Title } = Typography;
 
 type Props = {
-  currentId: any;
-  setCurrentId: any;
+  currentId: string | null;
+  setCurrentId: (id: string | null) => void;
 };
 
+export type ProductForm = Omit<CartItemType, '_id' | 'amount'>
+
 const ProductForm: React.FC<Props> = ({ currentId, setCurrentId }) => {
-  const [postData, setPostData] = useState({
+  const [productData, setProductData] = useState<ProductForm>({
     creator: "",
     title: "",
-    price: "",
+    price: 0,
     description: "",
     category: "",
-    selectedFile: "",
+    image: "",
   });
 
   const product = useSelector((state: Store) =>
@@ -32,21 +34,21 @@ const ProductForm: React.FC<Props> = ({ currentId, setCurrentId }) => {
 
   useEffect(() => {
     if (product)
-      setPostData({
+      setProductData({
         creator: product.creator,
         title: product.title,
-        price: product.price.toString(),
+        price: product.price,
         description: product.description,
         category: product.category,
-        selectedFile: product.image,
+        image: product.image,
       });
   }, [product]);
 
   const handleSubmit = () => {
     if (currentId) {
-      dispatch(updateProduct(currentId, postData));
+      dispatch(updateProduct(currentId, productData));
     } else {
-      dispatch(createProduct(postData));
+      dispatch(createProduct(productData));
     }
 
     clear();
@@ -56,13 +58,13 @@ const ProductForm: React.FC<Props> = ({ currentId, setCurrentId }) => {
 
   const clear = () => {
     setCurrentId(null);
-    setPostData({
+    setProductData({
       creator: "",
       title: "",
-      price: "",
+      price: 0,
       description: "",
       category: "",
-      selectedFile: "",
+      image: "",
     });
   };
 
@@ -86,41 +88,41 @@ const ProductForm: React.FC<Props> = ({ currentId, setCurrentId }) => {
         </Title>
         <Form.Item label="Shop Name">
           <Input
-            value={postData.creator}
+            value={productData.creator}
             onChange={(e) =>
-              setPostData({ ...postData, creator: e.target.value })
+              setProductData({ ...productData, creator: e.target.value })
             }
           />
         </Form.Item>
         <Form.Item label="Product Name">
           <Input
-            value={postData.title}
+            value={productData.title}
             onChange={(e) =>
-              setPostData({ ...postData, title: e.target.value })
+              setProductData({ ...productData, title: e.target.value })
             }
           />
         </Form.Item>
         <Form.Item label="Category">
           <Input
-            value={postData.category}
+            value={productData.category}
             onChange={(e) =>
-              setPostData({ ...postData, category: e.target.value })
+              setProductData({ ...productData, category: e.target.value })
             }
           />
         </Form.Item>
         <Form.Item label="Price">
           <Input
-            value={postData.price}
+            value={productData.price}
             onChange={(e) =>
-              setPostData({ ...postData, price: e.target.value })
+              setProductData({ ...productData, price: isNaN(+e.target.value) ? 0 : +e.target.value })
             }
           />
         </Form.Item>
         <Form.Item label="Description">
           <Input
-            value={postData.description}
+            value={productData.description}
             onChange={(e) =>
-              setPostData({ ...postData, description: e.target.value })
+              setProductData({ ...productData, description: e.target.value })
             }
           />
         </Form.Item>

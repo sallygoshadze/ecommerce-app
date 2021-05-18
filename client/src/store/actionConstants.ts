@@ -1,7 +1,7 @@
 import { AnyAction } from "redux";
 import { CartItemType, TOGGLE } from "./store";
 
-export type BasePayload = { id: number };
+export type BasePayload = { id: string };
 export type BaseAction = AnyAction & { payload: BasePayload };
 export const REMOVE = "REMOVE";
 

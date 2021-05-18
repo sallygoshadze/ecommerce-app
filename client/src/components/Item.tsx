@@ -14,7 +14,7 @@ const { Text } = Typography;
 
 type Props = {
   item: CartItemType;
-  setCurrentId: any;
+  setCurrentId: (id: string | null) => void;
 };
 
 const Item: React.FC<Props> = ({ item, setCurrentId }) => {

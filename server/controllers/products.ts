@@ -1,12 +1,13 @@
-import mongoose from "mongoose";
-import Product from "../models/product.js";
+import mongoose, { FilterQuery } from "mongoose";
+import Product, { IProduct } from "../models/product";
+import { Request, Response } from 'express';
 
-export const getProducts = async (req, res) => {
+export const getProducts = async (req: Request, res: Response) => {
   try {
-    const filter = {};
+    const filter: FilterQuery<IProduct> = {};
 
     if (req.query.category) {
-      filter.category = req.query.category;
+      filter.category = req.query.category as string;
     }
 
     const products = await Product.find(filter);
@@ -16,7 +17,7 @@ export const getProducts = async (req, res) => {
   }
 };
 
-export const createProduct = async (req, res) => {
+export const createProduct = async (req: Request, res: Response) => {
   const product = req.body;
   const newProduct = new Product(product);
 
@@ -28,7 +29,7 @@ export const createProduct = async (req, res) => {
   }
 };
 
-export const updateProduct = async (req, res) => {
+export const updateProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
   const product = req.body;
 
@@ -47,7 +48,7 @@ export const updateProduct = async (req, res) => {
   res.json(updatedProduct);
 };
 
-export const deleteProduct = async (req, res) => {
+export const deleteProduct = async (req: Request, res: Response) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -56,5 +57,5 @@ export const deleteProduct = async (req, res) => {
 
   await Product.findByIdAndRemove(id);
 
-  res.json({ message: "Post deleted successfully" });
+  res.json({ message: "Product deleted successfully" });
 };
