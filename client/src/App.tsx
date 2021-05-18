@@ -16,10 +16,10 @@ const App: React.FC = () => {
   const routes = (
     <Switch>
       <Route exact path="/" >
-        <Products setCurrentId={setCurrentId}/>
+        <Products setCurrentId={setCurrentId} currentId={currentId}/>
       </Route>
       <Route path="/category/:category" >
-      <Products setCurrentId={setCurrentId}/>
+      <Products setCurrentId={setCurrentId} currentId={currentId}/>
       </Route>
       <Route path="/:category/:title" component={SingleItem}></Route>
     </Switch>

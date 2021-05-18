@@ -42,17 +42,29 @@ const ProductForm: React.FC<Props> = ({ currentId, setCurrentId }) => {
       });
   }, [product]);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = () => {
     if (currentId) {
       dispatch(updateProduct(currentId, postData));
     } else {
       dispatch(createProduct(postData));
     }
 
+    clear();
+
     return false;
   };
 
-  const clear = () => {};
+  const clear = () => {
+    setCurrentId(null);
+    setPostData({
+      creator: "",
+      title: "",
+      price: "",
+      description: "",
+      category: "",
+      selectedFile: "",
+    });
+  };
 
   // const onChangeHandler = (event: any) => {
   //   console.log(event.target.files[0]);
@@ -69,7 +81,7 @@ const ProductForm: React.FC<Props> = ({ currentId, setCurrentId }) => {
         labelCol={{ span: 2 }}
         wrapperCol={{ span: 6 }}
       >
-        <Title level={3}>Add Product</Title>
+        <Title level={3}>{currentId ? "Editing" : "Adding"} a Product</Title>
         <Form.Item label="Shop Name">
           <Input
             value={postData.creator}

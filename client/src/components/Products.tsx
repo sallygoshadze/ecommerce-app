@@ -6,16 +6,16 @@ import Item from "./Item";
 import { Row, Col, Spin } from "antd";
 import { fetchProducts } from "../store/actionCreators";
 
-type Props = { category?: string; setCurrentId: any };
+type Props = { category?: string; setCurrentId: any; currentId: any };
 
-const Products: React.FC<Props> = ({ setCurrentId }) => {
+const Products: React.FC<Props> = ({ setCurrentId, currentId }) => {
   const loading = useSelector((state: Store) => state.loading);
   const dispatch = useDispatch();
   const { category } = useParams<Props>();
 
   useEffect(() => {
     dispatch(fetchProducts(category));
-  }, [category, dispatch]);
+  }, [category, dispatch, currentId]);
   const products = useSelector((state: Store) => state.products);
 
   if (loading) {
