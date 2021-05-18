@@ -78,10 +78,12 @@ const ProductForm: React.FC<Props> = ({ currentId, setCurrentId }) => {
         layout="horizontal"
         form={form}
         onFinish={handleSubmit}
-        labelCol={{ span: 2 }}
-        wrapperCol={{ span: 6 }}
+        labelCol={{ span: 9 }}
+        wrapperCol={{ span: 5 }}
       >
-        <Title level={3}>{currentId ? "Editing" : "Adding"} a Product</Title>
+        <Title style={{ textAlign: "center", margin: "20px 0" }} level={4}>
+          {currentId ? "Editing" : "Adding"} a Product
+        </Title>
         <Form.Item label="Shop Name">
           <Input
             value={postData.creator}
@@ -134,7 +136,7 @@ const ProductForm: React.FC<Props> = ({ currentId, setCurrentId }) => {
             }
           /> */}
         </div>
-        <Form.Item>
+        <Form.Item style={{ display: "flex", justifyContent: "center" }}>
           <Button type="primary" htmlType="submit">
             Submit
           </Button>
